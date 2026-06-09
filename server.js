@@ -39,10 +39,10 @@ app.post('/crear-pago', async (req, res) => {
           unit_price: planSeleccionado.price
         }],
         back_urls: {
-          success: 'https://esc-portillo.netlify.app/#membresias',
-          failure: 'https://esc-portillo.netlify.app/#membresias',
-          pending: 'https://esc-portillo.netlify.app/#membresias'
-        },
+      success: 'https://esencia-portillo.netlify.app/#membresias',
+      failure: 'https://esencia-portillo.netlify.app/#membresias',
+      pending: 'https://esencia-portillo.netlify.app/#membresias'
+      },
         auto_return: 'approved'
       }
     });
