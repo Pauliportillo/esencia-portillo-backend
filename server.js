@@ -7,19 +7,16 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Mercado Pago Client - Access Token kommt Sonntag von Alfredo
 const client = new MercadoPagoConfig({
   accessToken: process.env.MP_ACCESS_TOKEN
 });
 
-// Pläne
 const planes = {
-  principiante: { title: 'Plan Principiante', price: 15.99 },
-  intermedio: { title: 'Plan Intermedio', price: 34.99 },
-  profesional: { title: 'Plan Profesional', price: 49.95 }
+  principiante: { title: 'Plan Principiante – $15.99 USD', price: 22326 },
+  intermedio: { title: 'Plan Intermedio – $34.99 USD', price: 48814 },
+  profesional: { title: 'Plan Profesional – $49.95 USD', price: 69680 }
 };
 
-// Checkout endpoint
 app.post('/crear-pago', async (req, res) => {
   try {
     const { plan } = req.body;
@@ -38,11 +35,14 @@ app.post('/crear-pago', async (req, res) => {
           currency_id: 'ARS',
           unit_price: planSeleccionado.price
         }],
+        payment_methods: {
+          installments: 1
+        },
         back_urls: {
-      success: 'https://esencia-portillo.netlify.app/#membresias',
-      failure: 'https://esencia-portillo.netlify.app/#membresias',
-      pending: 'https://esencia-portillo.netlify.app/#membresias'
-      },
+          success: 'https://esencia-portillo.netlify.app/#membresias',
+          failure: 'https://esencia-portillo.netlify.app/#membresias',
+          pending: 'https://esencia-portillo.netlify.app/#membresias'
+        },
         auto_return: 'approved'
       }
     });
